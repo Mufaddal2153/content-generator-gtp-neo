@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Content</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+    :root{
+        --global-font-family: 'Open Sans', sans-serif;
+        --global-font-size: 1em;
+        --global-font-weight: 400;
+    }
+        body{ font-family: var(--global-font-family); font-weight: var(--global-font-size); margin: 0; height: 100vh; transition: 0.4s;  }
+        body.in-night{ background: #000; color: #fff; transition: 0.4s; }
+        .container{ margin: 0 auto; height: 100%; padding: 0 0.8em; max-width: 1200px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        body .night{ font-size: 0; position: absolute; bottom: 2.5%; right: 2.5%; z-index: 9; width: 50px; height: 50px; border-radius: 50%; background: #000; box-shadow: 0 0 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition:0.4s; }
+        body .night:before{ content: '\f186'; color: #fff; font: normal normal normal 22px/1 FontAwesome; position: absolute; transition:0.4s; }
+        body.in-night .night{ background: #fff;box-shadow: 0 0 5px rgba(255,255,255,0.3); transition:0.4s; }
+        body.in-night .night:before{ content: '\f185'; color: #000; transition:0.4s; }
+        form{ max-width: 1000px; margin: 0 auto; width: 100%; }
+        body.in-night form label{ color: #fff; transition: 0.4s; }
+        form label{ font-family: var(--global-font-family); font-weight: 500; color: #000; margin: 0 0 0.5em; transition: 0.4s; }
+        form .flex-row{ display: flex; width: 100%; flex-wrap: wrap; }
+        form .col-4{ flex: 0 0 29.33%; display: flex; flex-wrap: wrap; padding: 0 1em; }
+        form input[type="submit"]{ background: #ececec; color: #000; padding: 0.5em 1.1em; border: 0; border-radius: 5px; margin-left: 1em; margin-top: 1em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+        form input.text{ display: block; width: 100%; padding: 0.5em 0.8em; border: 2px solid #000; border-radius: 5px; }
+        form input.text:focus,form input.text:active{ outline: none; }
+        p { margin: 1em 0; background: #a9a9a9; border-radius: 5px; padding: 1.2em; box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+        p.in-night { background: #708090; }
+        #loader { border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width: 120px; height: 120px; animation: spin 2s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+<div class="modes">
+    <div class="night"><a>night</a></div>
+</div>
+<!--<div id="loader"></div>-->
+<div class="container" id="container">
+    <center>
+        <h1>AI Content Generator</h1>
+    </center>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+        <div class="flex-row">
+            <div class="col-4">
+                {{ form.search.label }}
+                {{ form.search(class_ = "text") }}
+            </div>
+            <div class="col-4">
+                {{ form.min.label }}
+                {{ form.min(class_ = "text") }}
+            </div>
+            <div class="col-4">
+                {{ form.max.label }}
+                {{ form.max(class_ = "text") }}
+            </div>
+        </div>
+        <input type="submit" value="submit" class="submit">
+        </form>
+        <p>{{ result }}{{ msg }}</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+
+    /*jQuery(document).ready(function(){
+        jQuery(".submit").on("click", function(){
+            jQuery.post('{{ url_for("index") }}', )
+        });
+    });*/
+
+    jQuery('.night').on('click', function(){
+        jQuery('body').toggleClass('in-night');
+        jQuery('p').toggleClass('in-night');
+    });
+</script>
+
+</body>
+</html>
